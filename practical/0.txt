@@ -1,0 +1,16 @@
+1-i/o, scatter plot,
+2-singleton, null values
+4-pizza, simple linear regression
+5-adaptor, multiple regression
+6-remote control, polynomial regression
+7-fan, naive bayes
+12-decorator,categorical values
+14-command, null values
+16-no conversion, regresion
+17-abstract factory,regression
+19-pizza, naive bayes
+20-i/o, decision tree
+21-remote control,svm
+25-singaleto, regression
+27-abstract factory,linear regression
+30-pizza,svm

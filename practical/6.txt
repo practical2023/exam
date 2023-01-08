@@ -1,0 +1,155 @@
+//Slip-6
+//SADP-Remote Control
+
+interface Command {
+public void execute();
+}
+class Light {
+public void on(){
+System.out.println("Light is on");
+}
+public void off()
+{
+System.out.println("Light is off");
+}
+}
+class LightOnCommand implements Command {
+Light l1;
+public LightOnCommand(Light a) {
+this.l1 = a;
+}
+public void execute() {
+l1.on();
+}
+}
+class LightOffCommand implements Command {
+Light l1;
+public LightOffCommand(Light a) {
+this.l1 = a;
+}
+public void execute() {
+l1.off();
+}
+}
+class SimpleRemoteControl {
+Command slot;
+public SimpleRemoteControl() {}
+public void setCommand(Command command) {
+slot = command;
+}
+public void buttonWasPressed() {
+slot.execute();
+}
+}
+public class Main {
+public static void main(String[] args) {
+SimpleRemoteControl r1 = new SimpleRemoteControl();
+Light l1 = new Light();
+LightOnCommand lo = new LightOnCommand(l1);
+r1.setCommand(lo);
+r1.buttonWasPressed();
+LightOffCommand lO = new LightOffCommand(l1);
+r1.setCommand(lO);
+r1.buttonWasPressed();
+}
+}
+
+
+//ML-Polynomial LinearRegression
+
+# Implement polynomial regression on given dataset
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+ 
+# Importing the dataset
+datas = pd.read_csv('D:\data.csv')
+print(datas)
+X = datas.iloc[:, 1:2].values
+y = datas.iloc[:, 2].values
+from sklearn.linear_model import LinearRegression
+lin = LinearRegression()
+ 
+lin.fit(X, y)
+from sklearn.preprocessing import PolynomialFeatures
+ 
+poly = PolynomialFeatures(degree = 4)
+X_poly = poly.fit_transform(X)
+plt.scatter(X, y, color = 'blue')
+ 
+plt.plot(X, lin.predict(X), color = 'red')
+#plt.title('Linear Regression')
+#plt.xlabel('Temperature')
+#plt.ylabel('Pressure')
+plt.show()
+poly.fit(X_poly, y)
+lin2 = LinearRegression()
+lin2.fit(X_poly, y)
+plt.scatter(X, y, color = 'blue')
+ 
+plt.plot(X, lin2.predict(poly.fit_transform(X)), color = 'red')
+#plt.title('Polynomial Regression')
+#plt.xlabel('Temperature')
+#plt.ylabel('Pressure')
+ 
+plt.show()
+pred = 110.0
+predarray = np.array([[pred]])
+print(lin.predict(predarray))
+pred2 = 110.0
+pred2array = np.array([[pred2]])
+print(lin2.predict(poly.fit_transform(pred2array)))
+
+
+//Web framework-Create a Node.js file that opens the requested file and returns the context to the client. 
+                If anything goes wrong, throw 404 error.
+ 
+   var http = require('http'); 
+   var url = require('url'); 
+   var fs = require('fs'); 
+   http.createServer(function (req, res) 
+   {     
+     var pathname = url.parse(req.url, true).pathname;
+     console.log("Request for" + pathname + "received.");
+     fs.readFile(pathname.substr(1), function (err, data) 
+     {         
+         if (err) 
+         {           
+           console.log(err); 
+            res.writeHead(404, 
+            { 
+             'content-type': 'text/html' 
+            }); 
+              res.end('<html><body><h1>404 Not found</h1></body></html>');  
+     }        
+         else 
+         {   
+          res.writeHead(200,
+          {
+           'content-type': 'text/html' 
+          });
+              res.write(data); 
+              res.end(); 
+         } 
+    }); 
+ 
+}).listen(9030); 
+   console.log('server is running on port 8080'); 
+
+//index.html
+
+ <!DOCTYPE html> 
+ 
+<html> 
+<head> 
+    <meta charset="utf-8" /> 
+    <title>Sample Page</title> 
+</head> 
+<body> 
+Hello World! Welcome to web module. 
+</body> 
+</html> 
+ 	 
+
+
+

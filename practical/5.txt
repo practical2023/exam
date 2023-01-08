@@ -1,0 +1,97 @@
+//Slip-5
+//SADP-Adapter Pattern Enumeration
+
+//Write a Java Program to implement Adapter pattern for Enumeration iterator
+
+import java.util.*;
+class EnumerationIterator implements Iterator {
+Enumeration enumeration;
+public EnumerationIterator(Enumeration enumeration) {
+this.enumeration = enumeration;
+}
+public boolean hasNext() {
+return enumeration.hasMoreElements();
+}
+public Object next() {
+return enumeration.nextElement();
+}
+
+public void remove() {
+throw new UnsupportedOperationException();
+}
+}
+public class Main {
+public static void main (String args[]) {
+Vector v = new Vector(Arrays.asList(args));
+Iterator iterator = new EnumerationIterator(v.elements());
+while (iterator.hasNext()) {
+System.out.println(iterator.next());
+}
+}
+}
+
+
+
+//ML- # implementation of multiple regression on given dataset
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn import preprocessing
+df = pd.read_csv('D:\Real-estate1.csv')
+df.drop('No', inplace = True,axis=1)
+ 
+print(df.head())
+print(df.columns)
+sns.scatterplot(x='X4 number of convenience stores',
+ y='Y house price of unit area', data=df)
+X = df.drop('Y house price of unit area',axis= 1)
+y = df['Y house price of unit area']
+print(X)
+print(y)
+X_train, X_test, y_train, y_test = train_test_split(
+ X, y, test_size=0.3, random_state=101)
+model = LinearRegression()
+model.fit(X_train,y_train)
+predictions = model.predict(X_test)
+print( 'mean_squared_error : ', mean_squared_error(y_test, predictions))
+print( 'mean_absolute_error : ', mean_absolute_error(y_test, predictions))
+
+
+
+//Web framework-Using nodejs create a web page to read two file names from user and append contents
+of first file into second file
+
+var fs = require('fs'); 
+var file1 ='input.txt'; 
+var file2 = 'output.txt'; 
+ 
+function fileValidation() 
+{     
+fs.open(file1,'r',function(err,fd)
+{  if(err)             
+    {  
+        return console.error(err); 
+    }            
+       var buffer = new Buffer.alloc(30);             
+       fs.read(fd,buffer,0,buffer.length,0,function(err,bytes)
+       {                
+           if(err) throw err;                 
+           console.log(buffer.toString()); 
+       });       
+          fs.appendFile(file2,buffer,function(err)
+          {         
+             if(err) throw err;         
+             console.log("data saved !!!");        
+             fs.close(fd,function(err) 
+             {            
+               if(err) throw err;}); 
+             });      
+         }); 
+}  
+fileValidation(); 
+ 
+

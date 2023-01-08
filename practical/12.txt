@@ -1,0 +1,86 @@
+//Slip-12
+//SADP-CAR
+
+interface Car {
+public void assemble();
+}
+class BasicCar implements Car {
+@Override
+public void assemble() {
+System.out.print("Basic Car.");
+}
+}
+class CarDecorator implements Car {
+protected Car car;
+public CarDecorator(Car c){
+this.car=c;
+}
+@Override
+public void assemble() {
+this.car.assemble();
+}
+}
+class SportsCar extends CarDecorator {
+public SportsCar(Car c) {
+super(c);
+}
+@Override
+public void assemble(){
+car.assemble();
+System.out.print(" Adding features of Sports Car.");
+}
+}
+class LuxuryCar extends CarDecorator {
+public LuxuryCar(Car c) {
+super(c);
+}
+public void assemble(){
+car.assemble();
+System.out.print(" Adding features of Luxury Car.");
+}
+}
+public class Main {
+public static void main(String[] args) {
+Car s1 = new SportsCar(new BasicCar());
+s1.assemble();
+Car s2 = new LuxuryCar(new BasicCar());
+s2.assemble();
+}
+}
+
+
+//ML-converting categorical values to numeric
+
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+labelencoder=LabelEncoder()
+df=pd.read_csv('D:\data.csv')
+print(df.head(8))
+df['city']=labelencoder.fit_transform(df['city'])
+print(df.head(8))
+
+//Web framework-Create a Simple Web Server using node js. 
+//Webserver.js 
+
+var mysql= require('mysql'); 
+var con= mysql.createConnection({  
+   host:"localhost",     
+   user:"root", 
+   password:"satara@123",  
+   database: "mydb" 
+}); 
+  con.connect(function(err)
+  {     
+     if (err) throw err; 
+     con.query("select name , address from Customer",function(err,result,fields)
+     {        
+       if (err) throw err;
+       console.log(result); 
+    });
+ }); 
+      var sql = "DELETE FROM Customer WHERE address='Valley 345'"; 
+      con.query(sql,function(err,result)
+      {    
+         if (err) throw err; 
+         console.log("Number of records Deleted:" + result.affectedRows); 
+      }); 

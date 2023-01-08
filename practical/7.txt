@@ -1,0 +1,88 @@
+//Slip-7
+//SADP-Ceiling Fan
+//Write a Java Program to implement undo command to test Ceiling fan.
+interface Command {
+public void execute();
+}
+class CeilingFan {
+public void on(){
+System.out.println("Ceiling Fan is on");
+}
+public void off()
+{
+System.out.println("Ceiling Fan is off");
+}
+}
+class CeilingFanOnCommand implements Command {
+CeilingFan c;
+public CeilingFanOnCommand(CeilingFan l) {
+this.c = l;
+}
+public void execute() {
+c.on();
+}
+}
+class CeilingFanOffCommand implements Command {
+CeilingFan c;
+public CeilingFanOffCommand(CeilingFan l) {
+this.c = l;
+}
+public void execute() {
+c.off();
+}
+}
+class SimpleRemoteControl {
+Command slot;
+public SimpleRemoteControl() {}
+public void setCommand(Command command) {
+slot = command;
+}
+public void buttonWasPressed() {
+slot.execute();
+}
+}
+public class Main {
+public static void main(String[] args) {
+SimpleRemoteControl remote = new SimpleRemoteControl();
+CeilingFan ceilingFan=new CeilingFan();
+CeilingFanOnCommand ceilingFanOn =new CeilingFanOnCommand(ceilingFan);
+remote.setCommand(ceilingFanOn);
+remote.buttonWasPressed();
+CeilingFanOffCommand ceilingFanOff =new CeilingFanOffCommand(ceilingFan);
+remote.setCommand(ceilingFanOff);
+remote.buttonWasPressed();
+}
+}
+
+
+//ML-Naive Bayes
+
+from sklearn.datasets import load_iris
+iris = load_iris()
+X = iris.data
+y = iris.target
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=1)
+from sklearn.naive_bayes import GaussianNB
+gnb = GaussianNB()
+gnb.fit(X_train, y_train)
+y_pred = gnb.predict(X_test)
+from sklearn import metrics
+print("Gaussian Naive Bayes model accuracy(in %):", metrics.accuracy_score(y_test, y_pred)*100)
+
+
+//Web fremwork-Create a Node.js file that writes an HTML form, with an upload field. 
+// File.js 
+	
+  var http = require('http'); 
+  http.createServer(function (req, res) 
+  {   
+    res.writeHead(200, {'Content-Type': 'text/html'});   
+    res.write('<form action="fileupload" method="post" enctype="multipart/formdata">');   
+    res.write('<input type="file" name="filetoupload"><br>');   
+    res.write('<input type="submit">');   
+    res.write('</form>');   
+    return res.end(); 
+  }).listen(8080); 
+ 
+

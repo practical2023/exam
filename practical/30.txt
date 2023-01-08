@@ -1,0 +1,210 @@
+slip 30
+SADP PIZZA
+import java.util.ArrayList; 
+class ChicagoPizzaStore extends PizzaStore 
+ { 
+ Pizza createPizza(String item) 
+ { 
+ if (item.equals("cheese")) 
+ { 
+ return new ChicagoStyleCheesePizza(); 
+ } 
+ else return null; 
+ } 
+} 
+class ChicagoStyleCheesePizza extends Pizza 
+ { 
+ public ChicagoStyleCheesePizza() 
+ { 
+ name = "Chicago Style Deep Dish Cheese Pizza"; 
+ dough = "Extra Thick Crust Dough"; 
+ sauce = "Plum Tomato Sauce"; 
+ toppings.add("Shredded Mozzarella Cheese"); 
+ } 
+ void cut() 
+ { 
+ System.out.println("Cutting the pizza into square slices"); 
+ } 
+} 
+{ public Pizza createPizza(String style, String type) 
+ { Pizza pizza = null; 
+ if (style.equals("NY")) 
+ { 
+ if (type.equals("cheese")) 
+ { 
+ pizza = new NYStyleCheesePizza(); 
+ } 
+ } 
+ 
+ if (style.equals("Chicago")) 
+ { 
+ if (type.equals("cheese")) 
+ { 
+ pizza = new ChicagoStyleCheesePizza(); 
+ } 
+ } 
+ 
+ else 
+ { 
+ System.out.println("Error: invalid type of pizza"); return null; 
+ } 
+ pizza.prepare(); 
+ pizza.bake(); 
+ pizza.cut(); 
+ pizza.box(); 
+ return pizza; 
+ } 
+} 
+class NYPizzaStore extends PizzaStore 
+ { 
+ Pizza createPizza(String item) 
+ { 
+ if (item.equals("cheese")) 
+ { 
+ return new NYStyleCheesePizza(); 
+ } 
+ else return null; 
+ } 
+} 
+class NYStyleCheesePizza extends Pizza 
+{ 
+ public NYStyleCheesePizza() 
+ { 
+ name = "NY Style Sauce and Cheese Pizza"; 
+ dough = "Thin Crust Dough"; 
+ sauce = "Marinara Sauce"; 
+ toppings.add("Grated Reggiano Cheese"); 
+ } 
+} 
+abstract class Pizza 
+{ 
+ String name; 
+ String dough; 
+ String sauce; 
+ ArrayList toppings = new ArrayList(); 
+ void prepare() 
+ { 
+ System.out.println("Preparing " + name); 
+ System.out.println("Tossing dough..."); 
+ System.out.println("Adding sauce..."); 
+ System.out.println("Adding toppings: "); 
+ for (int i = 0; i < toppings.size(); i++) 
+ { 
+ System.out.println(" " + toppings.get(i)); 
+ } 
+ } 
+ void bake() 
+ { 
+ System.out.println("Bake for 25 minutes at 350"); 
+ } 
+ void cut() 
+ { 
+ System.out.println("Cutting the pizza into diagonal slices"); 
+ } 
+ void box() 
+ { 
+ System.out.println("Place pizza in official PizzaStore box"); 
+ } 
+ public String getName() 
+ { 
+ return name; 
+ } 
+ public String toString() 
+ { 
+ StringBuffer display = new StringBuffer(); 
+ display.append("---- " + name + " ----\n"); 
+ display.append(dough + "\n"); 
+ display.append(sauce + "\n"); 
+ for (int i = 0; i < toppings.size(); i++) 
+ { 
+ display.append((String )toppings.get(i) + "\n"); 
+ } 
+ return display.toString(); 
+ } 
+} 
+abstract class PizzaStore 
+ { 
+ abstract Pizza createPizza(String item); 
+ public Pizza orderPizza(String type) 
+ { 
+ Pizza pizza = createPizza(type); 
+ System.out.println("--- Making a " + pizza.getName() + " ---"); 
+ pizza.prepare(); 
+ pizza.bake(); 
+ pizza.cut(); 
+ pizza.box(); 
+ return pizza; 
+ } 
+ } 
+public class Main 
+{ 
+ public static void main(String[] args) 
+ { 
+ PizzaStore nyStore = new NYPizzaStore(); 
+ PizzaStore chicagoStore = new ChicagoPizzaStore(); 
+ 
+ Pizza pizza = nyStore.orderPizza("cheese"); 
+ 
+ System.out.println("Poonam ordered a " + pizza.getName() + "\n"); 
+ pizza = chicagoStore.orderPizza("cheese"); 
+ 
+ System.out.println("Kadambari ordered a " + pizza.getName() + "\n"); 
+ pizza = nyStore.orderPizza("cheese"); 
+ } 
+} 
+Machine learning
+Linear SVM
+from sklearn import datasets 
+#Load dataset 
+cancer = datasets.load_breast_cancer() 
+# print the names of the 13 features 
+print("Features: ", cancer.feature_names) 
+# print the label type of cancer('malignant' 'benign') 
+print("Labels: ", cancer.target_names) 
+# print data(feature)shape 
+cancer.data.shape 
+# print the cancer data features (top 5 records) 
+print(cancer.data[0:5]) 
+# print the cancer labels (0:malignant, 1:benign) 
+print(cancer.target) 
+# Import train_test_split function 
+from sklearn.model_selection import train_test_split 
+# Split dataset into training set and test set 
+X_train, X_test, y_train, y_test = train_test_split(cancer.data, cancer.target, 
+test_size=0.3,random_state=109) # 70% training and 30% test 
+#Import svm model 
+from sklearn import svm 
+#Create a svm Classifier 
+clf = svm.SVC(kernel='linear') # Linear Kernel 
+#Train the model using the training sets 
+clf.fit(X_train, y_train) 
+#Predict the response for test dataset 
+y_pred = clf.predict(X_test) 
+#Import scikit-learn metrics module for accuracy calculation 
+from sklearn import metrics 
+# Model Accuracy: how often is the classifier correct? 
+print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+Web Framework
+Implement Login System using Django.
+<div class="container py-5">
+  <h1>Login</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ login_form|crispy }}
+    <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+</div>
+
+from django.urls import path
+from . import views
+
+app_name = "main"   
+
+
+urlpatterns = [
+    path("", views.homepage, name="homepage"),
+    ...
+    path("register", views.register_request, name="register"),
+    path("login", views.login_request, name="login")
